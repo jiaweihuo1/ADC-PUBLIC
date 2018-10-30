@@ -1,10 +1,10 @@
-﻿using Microsoft.ServiceFabric.Services.Runtime;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.ServiceFabric.Services.Runtime;
 
-namespace ADC.API.Stateless
+namespace ADC.Stateful.AAR
 {
     internal static class Program
     {
@@ -20,12 +20,12 @@ namespace ADC.API.Stateless
                 // When Service Fabric creates an instance of this service type,
                 // an instance of the class is created in this host process.
 
-                ServiceRuntime.RegisterServiceAsync("ADC.API.StatelessType",
-                    context => new Stateless(context)).GetAwaiter().GetResult();
+                ServiceRuntime.RegisterServiceAsync("ADC.Stateful.AARType",
+                    context => new AAR(context)).GetAwaiter().GetResult();
 
-                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(Stateless).Name);
+                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(AAR).Name);
 
-                // Prevents this host process from terminating so services keeps running. 
+                // Prevents this host process from terminating so services keep running.
                 Thread.Sleep(Timeout.Infinite);
             }
             catch (Exception e)

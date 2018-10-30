@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ADC.API.Stateless.Controllers
+namespace ADC.Stateless.API.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller

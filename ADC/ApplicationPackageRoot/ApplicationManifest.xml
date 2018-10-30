@@ -1,13 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="ADCType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
-    <Parameter Name="ADC.API.Stateless_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="ADC.Stateless.API_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="ADC.Stateful.AAR_MinReplicaSetSize" DefaultValue="3" />
+    <Parameter Name="ADC.Stateful.AAR_PartitionCount" DefaultValue="1" />
+    <Parameter Name="ADC.Stateful.AAR_TargetReplicaSetSize" DefaultValue="3" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
        ServiceManifest.xml file. -->
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="ADC.API.StatelessPkg" ServiceManifestVersion="1.0.0" />
+    <ServiceManifestRef ServiceManifestName="ADC.Stateless.APIPkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+  </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="ADC.Stateful.AARPkg" ServiceManifestVersion="1.0.0" />
     <ConfigOverrides />
   </ServiceManifestImport>
   <DefaultServices>
@@ -16,10 +23,15 @@
          ServiceFabric PowerShell module.
          
          The attribute ServiceTypeName below must match the name defined in the imported ServiceManifest.xml file. -->
-    <Service Name="ADC.API.Stateless" ServicePackageActivationMode="ExclusiveProcess">
-      <StatelessService ServiceTypeName="ADC.API.StatelessType" InstanceCount="[ADC.API.Stateless_InstanceCount]">
+    <Service Name="ADC.Stateless.API" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="ADC.Stateless.APIType" InstanceCount="[ADC.Stateless.API_InstanceCount]">
         <SingletonPartition />
       </StatelessService>
+    </Service>
+    <Service Name="ADC.Stateful.AAR" ServicePackageActivationMode="ExclusiveProcess">
+      <StatefulService ServiceTypeName="ADC.Stateful.AARType" TargetReplicaSetSize="[ADC.Stateful.AAR_TargetReplicaSetSize]" MinReplicaSetSize="[ADC.Stateful.AAR_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[ADC.Stateful.AAR_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
     </Service>
   </DefaultServices>
 </ApplicationManifest>

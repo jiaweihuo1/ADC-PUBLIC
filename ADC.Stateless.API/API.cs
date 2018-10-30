@@ -11,14 +11,14 @@ using Microsoft.ServiceFabric.Services.Communication.AspNetCore;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 
-namespace ADC.API.Stateless
+namespace ADC.Stateless.API
 {
     /// <summary>
     /// The FabricRuntime creates an instance of this class for each service type instance. 
     /// </summary>
-    internal sealed class Stateless : StatelessService
+    internal sealed class API : StatelessService
     {
-        public Stateless(StatelessServiceContext context)
+        public API(StatelessServiceContext context)
             : base(context)
         { }
 

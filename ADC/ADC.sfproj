@@ -32,7 +32,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ADC.API.Stateless\ADC.API.Stateless.csproj" />
+    <ProjectReference Include="..\ADC.Stateful.AAR\ADC.Stateful.AAR.csproj" />
+    <ProjectReference Include="..\ADC.Stateless.API\ADC.Stateless.API.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>

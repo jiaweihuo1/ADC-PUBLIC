@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace ADC.API.Stateless
+namespace ADC.Stateless.API
 {
     public class Startup
     {
@@ -27,9 +27,9 @@ namespace ADC.API.Stateless
         {
             services.AddMvc()
                 .AddJsonOptions(op =>
-            {
-                op.SerializerSettings.Formatting = Formatting.Indented;
-            });
+                {
+                    op.SerializerSettings.Formatting = Formatting.Indented;
+                });
 
             services.AddSwaggerGen(c =>
             {
@@ -44,7 +44,6 @@ namespace ADC.API.Stateless
             {
                 app.UseDeveloperExceptionPage();
             }
-
 
             app.UseSwagger(op => {
                 op.PreSerializeFilters.Add((swaggerDoc, httpRequest) => swaggerDoc.Host = httpRequest.Host.Value);
