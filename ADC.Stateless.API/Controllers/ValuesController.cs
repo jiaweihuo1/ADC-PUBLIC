@@ -2,43 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ADC.Stateful.AAR.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Remoting.Client;
 
 namespace ADC.Stateless.API.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        // GET api/values
+        private readonly IAARService _arrService;
+
+        public ValuesController()
+        {
+            _arrService = ServiceProxy.Create<IAARService>(new Uri("fabric:/ADC/ADC.Stateful.AAR"), new ServicePartitionKey(0));
+        }
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<bool> Get()
         {
-            return new string[] { "value1", "value2" };
+            return await _arrService.AppendForm("test");
         }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        
     }
 }

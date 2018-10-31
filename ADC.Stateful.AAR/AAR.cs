@@ -4,20 +4,28 @@ using System.Fabric;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ADC.Stateful.AAR.Interface;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
+using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 
 namespace ADC.Stateful.AAR
 {
     /// <summary>
     /// An instance of this class is created for each service replica by the Service Fabric runtime.
     /// </summary>
-    internal sealed class AAR : StatefulService
+    internal sealed class AAR : StatefulService, IAARService
     {
         public AAR(StatefulServiceContext context)
             : base(context)
         { }
+
+        //TODO: Test Method
+        public async Task<bool> AppendForm(string testString)
+        {
+            return await Task.FromResult<bool>(true);
+        }
 
         /// <summary>
         /// Optional override to create listeners (e.g., HTTP, Service Remoting, WCF, etc.) for this service replica to handle client or user requests.
@@ -28,7 +36,7 @@ namespace ADC.Stateful.AAR
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
         {
-            return new ServiceReplicaListener[0];
+            return this.CreateServiceRemotingReplicaListeners();
         }
 
         /// <summary>
