@@ -21,7 +21,7 @@ namespace ADC.Stateless.API.Controllers
         [HttpGet]
         public async Task<bool> Get()
         {
-            return await _arrService.AppendForm("test");
+            return await _arrService.AppendFormAsync("test");
         }
         
     }

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 using ADC.Stateful.AAR.Interface;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
-using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.Runtime;
+using Microsoft.ServiceFabric.Services.Runtime;
+
 
 namespace ADC.Stateful.AAR
 {
@@ -21,10 +22,9 @@ namespace ADC.Stateful.AAR
             : base(context)
         { }
 
-        //TODO: Test Method
-        public async Task<bool> AppendForm(string testString)
+        public async Task<bool> AppendFormAsync(string testString)
         {
-            return await Task.FromResult<bool>(true);
+            return await Task.FromResult(true);
         }
 
         /// <summary>

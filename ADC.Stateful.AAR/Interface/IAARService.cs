@@ -8,6 +8,6 @@ namespace ADC.Stateful.AAR.Interface
 {
     public interface IAARService: IService
     {
-        Task<bool> AppendForm(string testString);
+        Task<bool> AppendFormAsync(string testString);
     }
 }

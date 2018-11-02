@@ -158,13 +158,17 @@ namespace ADC.Stateless.API
         #region Private methods
         private static long GetReplicaOrInstanceId(ServiceContext context)
         {
+#pragma warning disable IDE0019 // Use pattern matching
             StatelessServiceContext stateless = context as StatelessServiceContext;
+#pragma warning restore IDE0019 // Use pattern matching
             if (stateless != null)
             {
                 return stateless.InstanceId;
             }
 
+#pragma warning disable IDE0019 // Use pattern matching
             StatefulServiceContext stateful = context as StatefulServiceContext;
+#pragma warning restore IDE0019 // Use pattern matching
             if (stateful != null)
             {
                 return stateful.ReplicaId;
